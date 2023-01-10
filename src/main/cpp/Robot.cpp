@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
+// on fait des modifs
 void Robot::RobotInit() {}
 void Robot::RobotPeriodic() {}
 
