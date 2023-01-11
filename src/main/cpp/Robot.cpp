@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-// on fait des modifs
+
 void Robot::RobotInit() {}
 void Robot::RobotPeriodic() {}
 
@@ -18,6 +18,7 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
+
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
