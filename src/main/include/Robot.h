@@ -5,6 +5,9 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include <frc/Joystick.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <rev/CANSparkMax.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -22,4 +25,14 @@ class Robot : public frc::TimedRobot {
 
   void TestInit() override;
   void TestPeriodic() override;
+
+  private:
+  frc::Joystick m_joystick{0};
+  //create 4 motor
+  rev::CANSparkMax m_MotorIntake1{1, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_MotorIntake2{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_MotorConvoyeur1{3, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_MotorConvoyeur2{4, rev::CANSparkMax::MotorType::kBrushless};  
+
+
 };
