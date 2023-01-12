@@ -5,6 +5,8 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include <rev/CANSparkMax.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -22,4 +24,9 @@ class Robot : public frc::TimedRobot {
 
   void TestInit() override;
   void TestPeriodic() override;
+
+
+  private:
+  rev::CANSparkMax m_motor{1, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_motor2{2, rev::CANSparkMax::MotorType::kBrushless};
 };
