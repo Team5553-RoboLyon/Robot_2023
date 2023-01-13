@@ -12,6 +12,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/BuiltInAccelerometer.h>
+//gyro
+#include <frc/ADXRS450_Gyro.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -30,10 +32,14 @@ class Robot : public frc::TimedRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
+
+  double signe(double x);
+
   private:
 
   frc::Joystick m_joystick{0};
   frc::BuiltInAccelerometer m_accelerometer{};
+  frc::ADXRS450_Gyro m_gyro{};
   frc::PIDController m_pidController{0.1, 0, 0};
 
   ctre::phoenix::motorcontrol::can::TalonFX m_MotorRight{1};

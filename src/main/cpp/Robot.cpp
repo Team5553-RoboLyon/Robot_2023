@@ -4,26 +4,44 @@
 
 #include "Robot.h"
 
+double Robot::signe(double x) {
+  if (x > 0) {
+    return 1;
+  } else if (x < 0) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
+
 void Robot::RobotInit() {}
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() {}
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() {
+  frc::SmartDashboard::PutNumber("P", 0.1);
+  frc::SmartDashboard::PutNumber("I", 0);
+  frc::SmartDashboard::PutNumber("D", 0);
+  frc::SmartDashboard::PutNumber("Setpoint", 1);
+}
 void Robot::TeleopPeriodic() {
 
-  double y = m_accelerometer.GetY()*9.806; // -1/1
-  double z = m_accelerometer.GetZ()*9.806; // -1/1
+  double z = m_accelerometer.GetZ(); // -1/1
 
-  double angle = atan2(y, z) * 180 / M_PI;
+  double output = m_pidController.Calculate(z, 1);
 
-  double output = m_pidController.Calculate(angle, 0);
+  double angle = m_gyro.GetAngle();
 
-  m_MotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
-  m_MotorRightFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
-  m_MotorRightFollower2.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
-  m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -output);
+  frc::SmartDashboard::PutNumber("Z", z);
+  frc::SmartDashboard::PutNumber("Output", output);
+  frc::SmartDashboard::PutNumber("Angle", angle);
+
+  m_MotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, signe(angle)*output);
+  m_MotorRightFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, signe(angle)*output);
+  m_MotorRightFollower2.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, signe(angle)*output);
+  m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, signe(angle)*output);
 
 }
 
